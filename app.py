@@ -12,6 +12,34 @@ st.header("""
           Loan Prediction Dataset
           """)
 
+st.write("""
+         **no_of_dependents**: The number of dependents (e.g., children or other family members financially dependent on the applicant).
+
+**education**: The education level of the applicant, where 1 represents "Graduate" and 0 represents "Not Graduate".
+
+**self_employed**: Indicates whether the applicant is self-employed, where 1 represents "Yes" and 0 represents "No".
+
+**income_annum**: The annual income of the applicant in currency units.
+
+**loan_amount**: The amount of loan requested by the applicant.
+
+**loan_term**: The duration of the loan in years.
+
+**cibil_score**: The credit score of the applicant, typically ranging from 300 to 900, where a higher score indicates better creditworthiness.
+
+**residential_assets_value**: The monetary value of the applicant's residential assets.
+
+**commercial_assets_value**: The monetary value of the applicant's commercial assets.
+
+**luxury_assets_value**: The monetary value of the applicant's luxury assets (e.g., cars, jewelry).
+
+**bank_asset_value**: The monetary value of the applicant's bank assets (e.g., savings, fixed deposits).
+
+**loan_status**: The target variable indicating whether the loan was approved (1) or rejected (0).
+         
+
+         """)
+
 
 # Sidebar
 st.sidebar.header("""
@@ -64,6 +92,9 @@ def get_user_input():
 
 
 data_df = get_user_input()
+st.subheader("""
+          User Input
+          """)
 st.write(data_df)
 
 clf = RandomForestClassifier()
@@ -75,12 +106,15 @@ clf.fit(X, y)
 prediction = clf.predict(data_df)
 predict_proba = clf.predict_proba(data_df)
 
-st.subheader("""
+st.header("""
              Prediction
+             """)
+st.write("""
+             0 Indicates loan application was rejected. 1 Indicates loan application was approved - based on user input
              """)
 st.write(prediction)
 
-st.subheader("""
+st.header("""
              Prediction Probability
              """)
 
