@@ -133,3 +133,18 @@ fig, ax = plt.subplots()
 sns.heatmap(df.corr(), linewidths=1)
 
 st.pyplot(fig)
+
+
+st.header("""
+          Plot
+          """)
+
+selected_column = st.radio("Histplot", ("no_of_dependents",
+                                        "income_annum", "loan_amount", "cibil_score", "residential_assets_value", "commercial_assets_value", "luxury_assets_value", "bank_asset_value"))
+
+
+fig, ax = plt.subplots()
+sns.histplot(x=df[selected_column], kde=True, hue=df["loan_status"])
+ax.tick_params(axis="both", which="major")
+
+st.pyplot(fig)
