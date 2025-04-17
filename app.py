@@ -1,10 +1,15 @@
 import pandas as pd
 import streamlit as st
 from sklearn.ensemble import RandomForestClassifier
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 
 df = pd.read_csv("./loan_approval_dataset.csv")
 df.columns = df.columns.str.strip()
+
+sns.set_theme(style="darkgrid")
+plt.style.use("dark_background")
 
 
 # Header
@@ -34,8 +39,6 @@ st.write("""
 **luxury_assets_value**: The monetary value of the applicant's luxury assets (e.g., cars, jewelry).
 
 **bank_asset_value**: The monetary value of the applicant's bank assets (e.g., savings, fixed deposits).
-
-**loan_status**: The target variable indicating whether the loan was approved (1) or rejected (0).
          
 
          """)
@@ -110,7 +113,7 @@ st.header("""
              Prediction
              """)
 st.write("""
-             0 Indicates loan application was rejected. 1 Indicates loan application was approved - based on user input
+**loan_status**: The target variable indicating whether the loan was approved (1) or rejected (0).
              """)
 st.write(prediction)
 
@@ -119,3 +122,14 @@ st.header("""
              """)
 
 st.write(predict_proba)
+
+st.header("""
+          Heatmap
+          """)
+st.write("""
+         This plot indicates which labels have the most importance on whether the loan will be approved or rejected.
+         """)
+fig, ax = plt.subplots()
+sns.heatmap(df.corr(), linewidths=1)
+
+st.pyplot(fig)
